@@ -1,7 +1,7 @@
 package com.narvatov.routing.match
 
 import com.narvatov.data.model.match.Match
-import com.narvatov.data.model.user.User
+import com.narvatov.data.model.user.NonMatchedFriendsRequest
 import com.narvatov.data.response.OkResponse
 import com.narvatov.data.response.SimpleResponse
 import com.narvatov.repository.Repository
@@ -32,6 +32,24 @@ fun Routing.matchRoute(
             }
 
             call.respond(HttpStatusCode.OK, OkResponse())
+        }
+
+        get("/non-matched-friends") {
+            val request = try {
+                call.receive<NonMatchedFriendsRequest>()
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, SimpleResponse(false, "You must provide userId and limit to get non matched friends."))
+                return@get
+            }
+
+            val nonMatchedFriends = try {
+                repository.getNonMatchedFriends(request)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.InternalServerError, SimpleResponse(false, e.message ?: "Internal error retrieving non matched friends."))
+                return@get
+            }
+
+            call.respond(HttpStatusCode.OK, nonMatchedFriends)
         }
     }
 }
