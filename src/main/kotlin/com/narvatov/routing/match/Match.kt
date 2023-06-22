@@ -34,19 +34,19 @@ fun Routing.matchRoute(
             call.respond(HttpStatusCode.OK, OkResponse())
         }
 
-        get("/non-matched-friends") {
+        post("/non-matched-friends") {
             val request = try {
                 call.receive<NonMatchedFriendsRequest>()
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.BadRequest, SimpleResponse(false, "You must provide userId and limit to get non matched friends."))
-                return@get
+                return@post
             }
 
             val nonMatchedFriends = try {
                 repository.getNonMatchedFriends(request)
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.InternalServerError, SimpleResponse(false, e.message ?: "Internal error retrieving non matched friends."))
-                return@get
+                return@post
             }
 
             call.respond(HttpStatusCode.OK, nonMatchedFriends)
