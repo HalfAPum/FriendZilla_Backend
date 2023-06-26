@@ -7,8 +7,8 @@ WORKDIR /
 COPY . .
 
 EXPOSE 8080:8080
-
-COPY ./build/libs/friend-zilla.jar /friend-zilla.jar
+RUN mkdir /FriendZilla
+COPY build/libs/friend-zilla.jar /friend-zilla.jar
 ENTRYPOINT ["java","-jar","/friend-zilla.jar"]
 
 # commands to run to get all work
