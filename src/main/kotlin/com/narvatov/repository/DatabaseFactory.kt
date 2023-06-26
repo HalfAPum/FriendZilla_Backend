@@ -31,7 +31,7 @@ object DatabaseFactory {
     fun hikari(appConfig: ApplicationConfig): HikariDataSource {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
-            jdbcUrl = "jdbc:postgresql:/friendzilla_db?user=postgres&password=admin"
+            jdbcUrl = "jdbc:postgresql://localhost:5432/friendzilla_db?user=postgres&password=admin"
             username = "postgres"
             password = "admin"
             maximumPoolSize = 3
