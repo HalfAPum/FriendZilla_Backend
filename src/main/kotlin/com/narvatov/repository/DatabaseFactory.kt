@@ -14,6 +14,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabaseFactory {
 
     fun init(config: ApplicationConfig) {
+        Database.connect(hikari(config))
 //        val driverClassName = config.property("storage.driverClassName").getString()
 //        val jdbcURL = config.property("storage.jdbcURL").getString()
 //        Database.connect(jdbcURL, driverClassName, user = "postgres", password = "admin")
@@ -27,19 +28,20 @@ object DatabaseFactory {
 //        }
     }
 
-//    fun hikari(): HikariDataSource {
-//        val config = HikariConfig()
-//        config.driverClassName = "org.postgresql.Driver"
-//        config.jdbcUrl = "jdbc:postgresql://db:5433/friendzilla_db?user=postgres&password=admin"
-//        config.username = "postgres"
-//        config.password = "admin"
-//        config.maximumPoolSize = 3
-//        config.isAutoCommit = false
-//        config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-//        config.validate()
-//
-//        return HikariDataSource(config)
-//    }
+    fun hikari(appConfig: ApplicationConfig): HikariDataSource {
+        val config = HikariConfig().apply {
+            driverClassName = "org.postgresql.Driver"
+            jdbcUrl = "jdbc:postgresql://db:5432/friendzilla_db?user=postgres&password=admin"
+            username = "postgres"
+            password = "admin"
+            maximumPoolSize = 3
+            isAutoCommit = false
+            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            validate()
+        }
+
+        return HikariDataSource(config)
+    }
 
     suspend fun <T> dbQuery(
         block: () -> T
