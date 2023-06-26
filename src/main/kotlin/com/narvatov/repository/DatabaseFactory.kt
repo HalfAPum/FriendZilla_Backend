@@ -14,17 +14,17 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabaseFactory {
 
     fun init(config: ApplicationConfig) {
-        val driverClassName = config.property("storage.driverClassName").getString()
-        val jdbcURL = config.property("storage.jdbcURL").getString()
-        Database.connect(jdbcURL, driverClassName, user = "postgres", password = "admin")
-
-        transaction {
-            SchemaUtils.create(UserTable)
-        }
-
-        transaction {
-            SchemaUtils.create(MatchTable)
-        }
+//        val driverClassName = config.property("storage.driverClassName").getString()
+//        val jdbcURL = config.property("storage.jdbcURL").getString()
+//        Database.connect(jdbcURL, driverClassName, user = "postgres", password = "admin")
+//
+//        transaction {
+//            SchemaUtils.create(UserTable)
+//        }
+//
+//        transaction {
+//            SchemaUtils.create(MatchTable)
+//        }
     }
 
 //    fun hikari(): HikariDataSource {
