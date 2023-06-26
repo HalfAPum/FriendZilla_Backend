@@ -23,9 +23,7 @@ USER postgres
 # then create a database `postgresondocker` owned by the ``postgresondocker`` role.
 # Note: here we use ``&&`` to run commands one after the other - the ````
 #       allows the RUN command to span multiple lines.
-RUN    /etc/init.d/postgresql start &&
-    psql --command "CREATE USER postgresondocker WITH SUPERUSER PASSWORD 'postgresondocker';" &&
-    createdb -O postgresondocker postgresondocker
+RUN    /etc/init.d/postgresql start && psql --command "CREATE USER postgresondocker WITH SUPERUSER PASSWORD 'postgresondocker';" && createdb -O postgresondocker postgresondocker
 
 # Adjust PostgreSQL configuration so that remote connections to the
 # database are possible.
