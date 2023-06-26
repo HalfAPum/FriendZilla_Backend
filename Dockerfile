@@ -1,3 +1,8 @@
+FROM postgres
+ENV POSTGRES_USER postgres
+ENV POSTGRES_PASSWORD admin
+ENV POSTGRES_DB friendzilla_db
+
 FROM openjdk:11
 
 LABEL maintainer="Oleksandr <hipi96222@gmail.com>"
