@@ -7,6 +7,7 @@ val postgres_version: String by project
 val hikari_version: String by project
 
 plugins {
+    application
     kotlin("jvm") version "1.8.22"
     id("io.ktor.plugin") version "2.3.1"
 }
@@ -22,6 +23,7 @@ application {
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/ktor/eap") }
 }
 
 dependencies {
@@ -39,4 +41,10 @@ dependencies {
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+}
+
+ktor {
+    fatJar {
+        archiveFileName.set("friend-zilla.jar")
+    }
 }

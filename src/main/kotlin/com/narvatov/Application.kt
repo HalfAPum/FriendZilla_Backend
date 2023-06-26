@@ -7,12 +7,13 @@ import com.narvatov.plugins.*
 import com.narvatov.repository.DatabaseFactory
 import com.narvatov.routing.configureRouting
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
+fun main(args: Array<String>) {
+    io.ktor.server.netty.EngineMain.main(args)
+//    embeddedServer(Netty, port = 8080, host = "0.0.0.0", module = Application::module).start(wait = true)
 }
 
 fun Application.module() {
-    DatabaseFactory.init()
+    DatabaseFactory.init(environment.config)
 
     configureSerialization()
     configureRouting()

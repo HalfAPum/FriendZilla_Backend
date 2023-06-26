@@ -14,6 +14,10 @@ fun Application.configureRouting() {
     routing {
         userRoute(repository)
         matchRoute(repository)
+
+        get("/") {
+            call.respondText("Hello World!")
+        }
     }
 }
 

@@ -5,7 +5,7 @@ import io.ktor.client.statement.*
 import io.ktor.server.testing.*
 import kotlin.test.*
 import io.ktor.http.*
-import com.narvatov.plugins.*
+import com.narvatov.routing.configureRouting
 
 class ApplicationTest {
     @Test
