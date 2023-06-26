@@ -1,3 +1,7 @@
+FROM ubuntu
+
+RUN apt-get -y update && apt-get -y unstall postgres
+
 FROM postgres
 ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD admin
