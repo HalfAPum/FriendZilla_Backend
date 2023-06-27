@@ -31,9 +31,9 @@ object DatabaseFactory {
     fun hikari(appConfig: ApplicationConfig): HikariDataSource {
         val config = HikariConfig().apply {
             driverClassName = "org.postgresql.Driver"
-            jdbcUrl = "jdbc:postgresql://db:5432/friendzilla_db?user=postgres&password=admin"
-            username = "postgres"
-            password = "admin"
+            jdbcUrl = "jdbc:postgresql://postgres:EC0Z3CfXSG56qvW3ui4d@container?user=postgres&password=EC0Z3CfXSG56qvW3ui4d"
+//            username = "postgres"
+//            password = "EC0Z3CfXSG56qvW3ui4d"
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"

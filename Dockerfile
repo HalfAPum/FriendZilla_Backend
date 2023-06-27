@@ -1,20 +1,4 @@
-# Use the official PostgreSQL base image
-FROM postgres:latest
-
-# Set environment variables
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=admin
-ENV POSTGRES_DB=friendizlla_db
-
-# Copy initialization script to run on container startup
-COPY init.sql /docker-entrypoint-initdb.d/
-
-# Expose PostgreSQL port
-EXPOSE 5432
-
 FROM openjdk:11
-
-LABEL maintainer="Oleksandr <hipi96222@gmail.com>"
 
 WORKDIR /FriendZilla
 
