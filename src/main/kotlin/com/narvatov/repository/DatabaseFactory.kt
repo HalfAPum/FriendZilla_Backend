@@ -19,17 +19,14 @@ object DatabaseFactory {
     fun init(config: ApplicationConfig) {
 //        val dbUri = URI("https://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
 //
-        val username: String = "postgres"
-        val password: String = "EC0Z3CfXSG56qvW3ui4d"
-        val dbUrl = "jdbc:postgresql://EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway"
-
-        DriverManager.getConnection(dbUrl, username, password)
-
-//        Database.connect(hikari(config))
-//        val driverClassName = config.property("storage.driverClassName").getString()
-//        val jdbcURL = config.property("storage.jdbcURL").getString()
-//        Database.connect(jdbcURL, driverClassName, user = "postgres", password = "admin")
+//        val username: String = "postgres"
+//        val password: String = "EC0Z3CfXSG56qvW3ui4d"
+//        val dbUrl = "jdbc:postgresql://EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway"
 //
+//        DriverManager.getConnection(dbUrl, username, password)
+
+        Database.connect(hikari(config))
+
         transaction {
             SchemaUtils.create(UserTable)
         }
@@ -41,11 +38,14 @@ object DatabaseFactory {
 
     fun hikari(appConfig: ApplicationConfig): HikariDataSource {
         val config = HikariConfig().apply {
-            this.
-            driverClassName = "org.postgresql.Driver"
-            jdbcUrl = "jdbc:postgresql://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway?user=postgres&password=EC0Z3CfXSG56qvW3ui4d"
-//            username = "postgres"
-//            password = "EC0Z3CfXSG56qvW3ui4d"
+//            driverClassName = "org.postgresql.Driver"
+            val dbHost = "containers-us-west-176.railway.app"
+            val dbPort = "7328"
+            val dbName = "railway"
+
+            jdbcUrl = "jdbc:postgresql://$dbHost:$dbPort/$dbName"
+            username = "postgres"
+            password = "EC0Z3CfXSG56qvW3ui4d"
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
