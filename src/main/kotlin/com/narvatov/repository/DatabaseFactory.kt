@@ -17,15 +17,15 @@ import java.sql.DriverManager
 object DatabaseFactory {
 
     fun init(config: ApplicationConfig) {
-//        val dbUri = URI("")
+        val dbUri = URI("postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
 //
-//        val username: String = dbUri.getUserInfo().split(":").get(0)
-//        val password: String = dbUri.getUserInfo().split(":").get(1)
-//        val dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
-//
-//        return DriverManager.getConnection(dbUrl, username, password)
+        val username: String = "postgres"
+        val password: String = "EC0Z3CfXSG56qvW3ui4d"
+        val dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
 
-        Database.connect(hikari(config))
+        DriverManager.getConnection(dbUrl, username, password)
+
+//        Database.connect(hikari(config))
 //        val driverClassName = config.property("storage.driverClassName").getString()
 //        val jdbcURL = config.property("storage.jdbcURL").getString()
 //        Database.connect(jdbcURL, driverClassName, user = "postgres", password = "admin")
@@ -41,6 +41,7 @@ object DatabaseFactory {
 
     fun hikari(appConfig: ApplicationConfig): HikariDataSource {
         val config = HikariConfig().apply {
+            this.
             driverClassName = "org.postgresql.Driver"
             jdbcUrl = "jdbc:postgresql://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway?user=postgres&password=EC0Z3CfXSG56qvW3ui4d"
 //            username = "postgres"
