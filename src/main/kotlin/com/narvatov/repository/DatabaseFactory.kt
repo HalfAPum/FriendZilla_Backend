@@ -17,11 +17,11 @@ import java.sql.DriverManager
 object DatabaseFactory {
 
     fun init(config: ApplicationConfig) {
-        val dbUri = URI("https://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
+//        val dbUri = URI("https://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
 //
         val username: String = "postgres"
         val password: String = "EC0Z3CfXSG56qvW3ui4d"
-        val dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath()
+        val dbUrl = "jdbc:postgresql://EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway"
 
         DriverManager.getConnection(dbUrl, username, password)
 
