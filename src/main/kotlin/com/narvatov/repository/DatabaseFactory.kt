@@ -17,7 +17,7 @@ import java.sql.DriverManager
 object DatabaseFactory {
 
     fun init(config: ApplicationConfig) {
-        val dbUri = URI("postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
+        val dbUri = URI("https://postgres:EC0Z3CfXSG56qvW3ui4d@containers-us-west-176.railway.app:7328/railway")
 //
         val username: String = "postgres"
         val password: String = "EC0Z3CfXSG56qvW3ui4d"
