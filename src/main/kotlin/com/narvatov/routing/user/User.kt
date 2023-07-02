@@ -1,5 +1,6 @@
 package com.narvatov.routing.user
 
+import com.narvatov.data.model.user.Location
 import com.narvatov.data.model.user.User
 import com.narvatov.data.response.OkResponse
 import com.narvatov.data.response.SimpleResponse
@@ -46,6 +47,31 @@ fun Routing.userRoute(
             } catch (e: Exception) {
                 call.respond(HttpStatusCode.InternalServerError, SimpleResponse(false, e.message ?: "Internal error deleting user."))
                 return@delete
+            }
+
+            call.respond(HttpStatusCode.OK, OkResponse())
+        }
+
+        post("/update-location/{id}") {
+            val userId = call.parameters["id"]
+
+            if (userId == null) {
+                call.respond(HttpStatusCode.BadRequest, SimpleResponse(false, "You must provide userId to update location."))
+                return@post
+            }
+
+            val location = try {
+                call.receive<Location>()
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.BadRequest, SimpleResponse(false, "Wrong location json input body. You must specify latitude and longitude."))
+                return@post
+            }
+
+            try {
+                repository.updateUserLocation(userId, location)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.InternalServerError, SimpleResponse(false, e.message ?: "Internal error updating user location."))
+                return@post
             }
 
             call.respond(HttpStatusCode.OK, OkResponse())

@@ -1,6 +1,7 @@
 package com.narvatov.repository
 
 import com.narvatov.data.model.match.Match
+import com.narvatov.data.model.user.Location
 import com.narvatov.data.model.user.NonMatchedFriendsRequest
 import com.narvatov.data.model.user.User
 import com.narvatov.data.table.match.MatchTable
@@ -22,6 +23,15 @@ class Repository {
     suspend fun deleteUser(id: String) {
         dbQuery {
             UserTable.deleteWhere { UserTable.id.eq(id) }
+        }
+    }
+
+    suspend fun updateUserLocation(userId: String, location: Location) {
+        dbQuery {
+            UserTable.update(where = { UserTable.id.eq(userId) }) { userTable ->
+                userTable[latitude] = location.latitude
+                userTable[longitude] = location.longitude
+            }
         }
     }
 
