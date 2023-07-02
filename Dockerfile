@@ -1,6 +1,3 @@
-FROM gradle:7-jdk11 AS build
-RUN gradle buildFatJar --no-daemon
-
 FROM openjdk:11
 
 WORKDIR /FriendZilla
