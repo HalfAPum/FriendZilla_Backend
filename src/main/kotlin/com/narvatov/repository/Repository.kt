@@ -1,6 +1,7 @@
 package com.narvatov.repository
 
 import com.narvatov.data.model.match.Match
+import com.narvatov.data.model.user.AdditionalUserInfo
 import com.narvatov.data.model.user.Location
 import com.narvatov.data.model.user.NonMatchedFriendsRequest
 import com.narvatov.data.model.user.User
@@ -44,6 +45,12 @@ class Repository {
         }
     }
 
+    suspend fun getUser(userId: String) = dbQuery {
+        UserTable.select {
+            UserTable.id.eq(userId)
+        }.firstNotNullOfOrNull { it.rowToAdditionalUserInfo() }
+    }
+
     suspend fun getNonMatchedFriends(request: NonMatchedFriendsRequest) = dbQuery {
         val userId = request.userId
 
@@ -76,6 +83,14 @@ class Repository {
     private fun ResultRow.rowToUser(): User {
         return User(
             id = get(UserTable.id),
+        )
+    }
+
+    private fun ResultRow.rowToAdditionalUserInfo(): AdditionalUserInfo {
+        return AdditionalUserInfo(
+            id = get(UserTable.id),
+            latitude = get(UserTable.latitude),
+            longitude = get(UserTable.longitude),
         )
     }
 

@@ -76,6 +76,24 @@ fun Routing.userRoute(
 
             call.respond(HttpStatusCode.OK, OkResponse())
         }
+
+        get("/{id}") {
+            val userId = call.parameters["id"]
+
+            if (userId == null) {
+                call.respond(HttpStatusCode.BadRequest, SimpleResponse(false, "You must provide userId to get user."))
+                return@get
+            }
+
+            try {
+                val user = repository.getUser(userId)!!
+
+                call.respond(HttpStatusCode.OK, user)
+            } catch (e: Exception) {
+                call.respond(HttpStatusCode.InternalServerError, SimpleResponse(false, e.message ?: "Internal error retrieving user."))
+                return@get
+            }
+        }
     }
 }
 
